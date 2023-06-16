@@ -1,6 +1,7 @@
 import { Application, Request, Response } from "express";
 
 import setUsersRoute from "./users";
+import setTasksRoute from "./task";
 
 const setRoutes = (app: Application) => {
   app.get("/", (req: Request, res: Response) =>
@@ -8,6 +9,7 @@ const setRoutes = (app: Application) => {
   );
 
   setUsersRoute(app);
+  setTasksRoute(app);
 };
 
 export default setRoutes;
