@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "outDir": "bin",
+    "baseUrl": "./src",
+    "module": "commonjs",
+    "removeComments": false,
+    "pretty": true,
+    "sourceMap": true
+  },
+
+  "include": ["src/**/*.ts"],
+
+  "exclude": ["node_modules"]
+}
