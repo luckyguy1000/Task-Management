@@ -2,8 +2,9 @@ import * as mongoose from "mongoose";
 import * as bcrypt from "bcryptjs";
 
 export interface IUser extends mongoose.Document {
-  email: string;
+  email: String;
   password: string;
+  comparePassword(candidatePassword: string): Promise<boolean>;
 }
 
 export const schema = new mongoose.Schema(
@@ -34,6 +35,18 @@ schema.pre("update", function (next) {
     next();
   });
 });
+
+schema.methods.comparePassword = function (
+  candidatePassword: String
+): Promise<boolean> {
+  let password: String = this.password;
+  return new Promise((resolve, reject) => {
+    bcrypt.compare(candidatePassword, password, (err, success) => {
+      if (err) return reject(err);
+      return resolve(success);
+    });
+  });
+};
 
 export const model = mongoose.model<IUser>("User", schema);
 
