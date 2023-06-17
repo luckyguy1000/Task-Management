@@ -1,10 +1,10 @@
-import { Request, Response } from "express";
+import { Request, Response, NextFunction } from "express";
 
 import Task from "../models/task";
 
 export const getAll = async (req: Request, res: Response) => {
   try {
-    const tasks = await Task.find({}).exec();
+    const tasks = await Task.findOne({ user: req.body.user._id }).exec();
 
     res.status(200).json(tasks);
   } catch (err) {
@@ -56,5 +56,27 @@ export const deleteOne = async (req: Request, res: Response) => {
     res.status(200).json({ message: "Task deleted successfully!" });
   } catch (err) {
     res.status(400).json({ message: `Error delete task: ${err}` });
+  }
+};
+
+export const isEditable = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    let task = await Task.findById(req.params.id).exec();
+
+    if (task === null) {
+      return res.status(404).json({ message: "This task doesn't exist" });
+    }
+
+    if (task.user.toString() == req.body.user._id.toString()) {
+      return next();
+    }
+
+    return res.status(403).json({ message: "You have no permission." });
+  } catch (err) {
+    res.status(400).json(err);
   }
 };

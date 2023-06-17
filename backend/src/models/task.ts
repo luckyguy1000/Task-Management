@@ -10,7 +10,11 @@ export interface ITask extends mongoose.Document {
 
 export const schema = new mongoose.Schema(
   {
-    name: {
+    title: {
+      type: String,
+      require: true,
+    },
+    detail: {
       type: String,
       require: true,
     },
@@ -23,6 +27,6 @@ export const schema = new mongoose.Schema(
   { timestamps: true }
 );
 
-export const model = mongoose.model<IUser>("Task", schema);
+export const model = mongoose.model<ITask>("Task", schema);
 
 export default model;

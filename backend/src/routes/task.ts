@@ -7,6 +7,7 @@ const setTasksRoute = (app: Application) => {
 
   app.get(endpoint, Task.getAll);
   app.post(endpoint, Task.create);
+  app.all(endpoint + "/:id", Task.isEditable);
   app.get(endpoint + "/:id", Task.getOne);
   app.put(endpoint + "/:id", Task.update);
   app.delete(endpoint + "/:id", Task.deleteOne);

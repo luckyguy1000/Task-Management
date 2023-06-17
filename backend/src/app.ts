@@ -28,7 +28,7 @@ app.all(process.env.API_BASE + "*", (req, res, next) => {
           return res.status(401).json({ message: info.message });
         }
       }
-      app.set("user", user);
+      req.body.user = user;
       return next();
     }
   )(req, res, next);
