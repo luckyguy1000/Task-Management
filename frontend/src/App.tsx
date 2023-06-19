@@ -1,8 +1,10 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import { useAuth } from './utils/auth';
 
 function App() {
+  useAuth();
   return (
     <div className="App">
       <header className="App-header">
