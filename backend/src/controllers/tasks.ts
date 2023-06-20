@@ -20,12 +20,11 @@ export const getAll = async (req: Request, res: Response) => {
           { detail: { $regex: query.searchKey, $options: "i" } },
         ],
       };
-    console.log(filter);
     const tasks = await Task.find(filter)
       .skip((query.page - 1) * query.pageSize)
       .limit(query.pageSize)
       .exec();
-    const total = await Task.find({ user: req.body.user._id }).count();
+    const total = await Task.find(filter).count();
     res.status(200).json({ tasks, total });
   } catch (err) {
     res.status(400).json(err);
