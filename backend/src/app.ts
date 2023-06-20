@@ -2,6 +2,7 @@ import express = require("express");
 import { Application } from "express";
 import * as bodyParser from "body-parser";
 import * as cors from "cors";
+import helmet from "helmet";
 
 import passport from "./jwtpassport";
 import setRoutes from "./routes/index";
@@ -11,6 +12,8 @@ const app: Application = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
+
+app.use(helmet());
 
 app.use(passport.initialize());
 app.all(process.env.API_BASE + "*", (req, res, next) => {
