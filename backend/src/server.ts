@@ -4,7 +4,7 @@ mongoose.Promise = require("bluebird");
 
 import app from "./app";
 
-const port = process.env.APP_PORT || 3000;
+const port = process.env.NODE_DOCKER_PORT || 3000;
 const dbIP = process.env.DB_IP || "127.0.0.1";
 const dbName = process.env.DB_NAME || "task_db";
 
