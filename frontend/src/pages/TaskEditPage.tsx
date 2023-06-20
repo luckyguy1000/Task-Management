@@ -48,7 +48,6 @@ const TaskEditPage: React.FC = () => {
         localStorage.removeItem("authtoken");
       }
     }
-    if (action === "Create") setTask(undefined);
   }, [data, isLoading, isSuccess, error, action]);
 
   const saveTaskMutation = useMutation({

@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Avatar, List, Pagination, Popconfirm, message, Button } from "antd";
+import { Avatar, List, Pagination, Popconfirm, Button } from "antd";
 import { Link } from "react-router-dom";
 
 interface TaskListProps {

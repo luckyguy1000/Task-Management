@@ -27,6 +27,8 @@ export const schema = new mongoose.Schema(
   { timestamps: true }
 );
 
+schema.index({ "$**": "text" });
+
 export const model = mongoose.model<ITask>("Task", schema);
 
 export default model;

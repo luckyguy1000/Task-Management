@@ -1,6 +1,6 @@
 import * as React from "react";
 import { AxiosError } from "axios";
-import { Button, Space, Typography } from "antd";
+import { Button, Space, Typography, Input } from "antd";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 
@@ -26,7 +26,7 @@ const TaskListPage: React.FC = () => {
     any
   >({
     queryKey: ["tasks"],
-    queryFn: () => taskList(page, pageSize),
+    queryFn: () => taskList(page, pageSize, searchKey),
   });
 
   const handlePaginateChange = (pageNo: number, pageS: number) => {
@@ -59,6 +59,10 @@ const TaskListPage: React.FC = () => {
     deleteMutation.mutate(id);
   };
 
+  const handleSearch = (value: string) => {
+    setSearchKey(value);
+  };
+
   const signOut = () => {
     localStorage.removeItem("authtoken");
     setToken("");
@@ -77,6 +81,11 @@ const TaskListPage: React.FC = () => {
           </Button>
         </Space>
         <hr />
+        <Input.Search
+          placeholder="input search text"
+          onSearch={handleSearch}
+          style={{ width: "100%" }}
+        />
       </div>
       <TaskList
         pending={isLoading}

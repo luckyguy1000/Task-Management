@@ -11,12 +11,21 @@ type QueryType = {
 export const getAll = async (req: Request, res: Response) => {
   try {
     const query: QueryType = req.query;
-    const tasks = await Task.find({ user: req.body.user._id })
+    let filter: object = { user: req.body.user._id };
+    if (query.searchKey)
+      filter = {
+        ...filter,
+        $or: [
+          { title: { $regex: query.searchKey, $options: "i" } },
+          { detail: { $regex: query.searchKey, $options: "i" } },
+        ],
+      };
+    console.log(filter);
+    const tasks = await Task.find(filter)
       .skip((query.page - 1) * query.pageSize)
       .limit(query.pageSize)
       .exec();
     const total = await Task.find({ user: req.body.user._id }).count();
-
     res.status(200).json({ tasks, total });
   } catch (err) {
     res.status(400).json(err);
