@@ -7,6 +7,7 @@ interface TaskListProps {
   tasks: API.TaskListRespDataItem[];
   total: number | undefined;
   onDelete: (id: string) => void;
+  onPaginateChange: (page: number, pageSize: number) => void;
 }
 
 const TaskList: React.FC<TaskListProps> = ({
@@ -14,6 +15,7 @@ const TaskList: React.FC<TaskListProps> = ({
   tasks,
   total,
   onDelete,
+  onPaginateChange,
 }) => {
   return (
     <>
@@ -52,7 +54,7 @@ const TaskList: React.FC<TaskListProps> = ({
 
       <Pagination
         defaultCurrent={1}
-        // onChange={this.handleChange}
+        onChange={onPaginateChange}
         total={total}
       />
     </>

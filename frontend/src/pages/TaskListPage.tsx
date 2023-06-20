@@ -15,6 +15,10 @@ const TaskListPage: React.FC = () => {
   const nagivate = useNavigate();
   const [, setToken] = useAuth();
 
+  const [page, setPage] = React.useState<number>(1);
+  const [pageSize, setPageSize] = React.useState<number>(10);
+  const [searchKey, setSearchKey] = React.useState<string>("");
+
   const { data, isLoading, isSuccess, error, refetch } = useQuery<
     Promise<any>,
     AxiosError,
@@ -22,8 +26,12 @@ const TaskListPage: React.FC = () => {
     any
   >({
     queryKey: ["tasks"],
-    queryFn: () => taskList(),
+    queryFn: () => taskList(page, pageSize),
   });
+
+  const handlePaginateChange = (pageNo: number, pageS: number) => {
+    setPage(pageNo);
+  };
 
   React.useEffect(() => {
     if (error) {
@@ -33,6 +41,10 @@ const TaskListPage: React.FC = () => {
       }
     }
   }, [error]);
+
+  React.useEffect(() => {
+    refetch();
+  }, [page, pageSize, searchKey]);
 
   const deleteMutation = useMutation({
     mutationFn: (id: string) => {
@@ -71,6 +83,7 @@ const TaskListPage: React.FC = () => {
         tasks={isSuccess ? data.data.tasks : []}
         total={data?.data.total}
         onDelete={handleDelete}
+        onPaginateChange={handlePaginateChange}
       />
     </Block>
   );

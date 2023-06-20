@@ -2,11 +2,22 @@ import { Request, Response, NextFunction } from "express";
 
 import Task from "../models/task";
 
+type QueryType = {
+  page?: number;
+  pageSize?: number;
+  searchKey?: string;
+};
+
 export const getAll = async (req: Request, res: Response) => {
   try {
-    const tasks = await Task.findOne({ user: req.body.user._id }).exec();
+    const query: QueryType = req.query;
+    const tasks = await Task.find({ user: req.body.user._id })
+      .skip((query.page - 1) * query.pageSize)
+      .limit(query.pageSize)
+      .exec();
+    const total = await Task.find({ user: req.body.user._id }).count();
 
-    res.status(200).json(tasks);
+    res.status(200).json({ tasks, total });
   } catch (err) {
     res.status(400).json(err);
   }

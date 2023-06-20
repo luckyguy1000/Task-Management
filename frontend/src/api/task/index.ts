@@ -1,6 +1,9 @@
 import instance from "..";
 
-export const taskList = () => instance.get<string, API.CommonResp>("api/tasks");
+export const taskList = (page: number, pageSize: number) =>
+  instance.get<string, API.CommonResp>(
+    `api/tasks?page=${page}&pageSize=${pageSize}`
+  );
 
 export const createTask = (formData: API.TaskItem) =>
   instance.post<string, API.CommonResp>("api/tasks", formData);
