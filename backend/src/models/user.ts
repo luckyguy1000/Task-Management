@@ -33,12 +33,12 @@ schema.pre("save", function (next) {
   });
 });
 
-schema.pre("update", function (next) {
-  bcrypt.hash(this.password, 10, (err, hash) => {
-    this.password = hash;
-    next();
-  });
-});
+// schema.pre("update", function (next) {
+//   bcrypt.hash(this.password, 10, (err, hash) => {
+//     this.password = hash;
+//     next();
+//   });
+// });
 
 schema.methods.comparePassword = function (
   candidatePassword: String
