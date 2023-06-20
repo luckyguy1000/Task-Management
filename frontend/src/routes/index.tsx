@@ -2,7 +2,8 @@ import * as React from "react";
 import { createBrowserRouter } from "react-router-dom";
 
 const AppLayout = React.lazy(() => import("../components/layout"));
-const App  = React.lazy(() => import("../App"))
+const TaskListPage = React.lazy(() => import("../pages/TaskListPage"));
+const TaskEditPage = React.lazy(() => import("../pages/TaskEditPage"));
 const Signup = React.lazy(() => import("../pages/Signup"));
 const Signin = React.lazy(() => import("../pages/Signin"));
 
@@ -13,7 +14,15 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <App />,
+        element: <TaskListPage />,
+      },
+      {
+        path: "/tasks/new",
+        element: <TaskEditPage />,
+      },
+      {
+        path: "/tasks/edit/:id",
+        element: <TaskEditPage />,
       },
       {
         path: "/signup",

@@ -25,8 +25,8 @@ const Signup: React.FC = () => {
   });
 
   const handleSubmit = (input: SignupData) => {
-    registerMutation.mutate(input)
-  }
+    registerMutation.mutate(input);
+  };
 
   if (!isGuest) {
     return null;
@@ -34,7 +34,10 @@ const Signup: React.FC = () => {
 
   return (
     <Block>
-      <SignupForm pending={registerMutation.isLoading} onSubmit={handleSubmit} />
+      <SignupForm
+        pending={registerMutation.isLoading}
+        onSubmit={handleSubmit}
+      />
     </Block>
   );
 };

@@ -10,7 +10,10 @@ instance.defaults.headers.post["Content-Type"] =
 
 instance.interceptors.request.use(
   (config) => {
-    config.headers.set("Authorization", window.localStorage.getItem("token"));
+    config.headers.set(
+      "Authorization",
+      "Bearer " + window.localStorage.getItem("authtoken")
+    );
     return config;
   },
   (err) => {

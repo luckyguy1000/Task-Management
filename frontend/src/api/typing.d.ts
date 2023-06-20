@@ -1,7 +1,7 @@
 declare namespace API {
-  export type CommonResp = {
+  export type CommonResp<T = any> = {
     status: number;
-    data: any;
+    data: T;
     msg: string;
     error: string;
   };
@@ -24,5 +24,23 @@ declare namespace API {
   export type UserRegisterResp = {
     id: string;
     message: string;
+  };
+
+  export type TaskListRespDataItem = {
+    _id: string;
+    title: string;
+    detail: string;
+    scheduled_date: string;
+  };
+
+  export type TaskItem = {
+    title: string;
+    detail: string;
+    scheduled_date: any;
+  };
+
+  export type TaskListRespData = {
+    tasks: TaskListRespDataItem[];
+    total: number;
   };
 }

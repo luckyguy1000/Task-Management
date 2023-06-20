@@ -2,8 +2,6 @@ import * as React from "react";
 import { Outlet } from "react-router-dom";
 import { Col, Layout, Row, notification } from "antd";
 
-import Header from "./Header";
-
 const { Content } = Layout;
 
 const contentStyle = {
@@ -21,8 +19,6 @@ const AppLayout: React.FC = () => {
 
   return (
     <Layout className="layout">
-      <Header />
-
       <Content style={contentStyle}>
         <div style={containerStyle}>
           <Row gutter={16}>
