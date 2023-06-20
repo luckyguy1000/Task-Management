@@ -1,15 +1,14 @@
 import "dotenv/config";
 import mongoose from "mongoose";
 mongoose.Promise = require("bluebird");
+import * as dbConfig from './config/db.config'
 
 import app from "./app";
 
 const port = process.env.NODE_DOCKER_PORT || 3000;
-const dbIP = process.env.DB_IP || "127.0.0.1";
-const dbName = process.env.DB_NAME || "task_db";
 
 mongoose
-  .connect(`mongodb://${dbIP}:27017/${dbName}`)
+  .connect(dbConfig.uri)
   .then(() => {
     console.log("Connected to MongoDB successfully.");
   })
